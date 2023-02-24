@@ -28,7 +28,7 @@ const ExpenseInput = ({
   const validateAmount = (_, value) => {
     if (value === null) return Promise.resolve();
     if (value <= 0) return Promise.reject("Invalid amount entered");
-    let totalExpenses =
+    const totalExpenses =
       expenses.reduce((acc, curr) => acc + curr.amount, 0) + value;
     if (totalExpenses > expenseLimit) {
       return Promise.reject(

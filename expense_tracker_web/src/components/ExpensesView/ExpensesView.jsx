@@ -221,10 +221,11 @@ function EditableCell({
     if (dataIndex === "amount") {
       if (value === null) return Promise.resolve();
       if (value <= 0) return Promise.reject("Invalid amount entered");
-      let totalExpenses =
+      const totalExpenses =
         expenses.reduce((acc, curr) => {
-          return acc + curr.amount, 0;
-        }) + value;
+          if (curr._id === record.key) return acc;
+          return acc + curr.amount;
+        }, 0) + value;
       if (totalExpenses > expenseLimit) {
         return Promise.reject(
           "Total spent cannnot be more than the expense limit"
